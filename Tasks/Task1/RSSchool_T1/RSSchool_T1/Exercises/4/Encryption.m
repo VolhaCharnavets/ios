@@ -4,18 +4,26 @@
 
 // Complete the encryption function below.
 - (NSString *)encryption:(NSString *)string {
-    double length = sqrt (length);
-    int row = floor(length);
-    int column = ceil(length);
-    if (row * column < length){
-        row = row + 1;
+    double lengthSqrt = sqrt(string.length);
+    int rows = ceil(lengthSqrt);
+    int columns = floor(lengthSqrt);
+    if (rows * columns < string.length){
+        columns += 1;
     }
-    NSMutableArray<NSString*> *rowContainer = [[NSMutableArray alloc] initWithCapacity:row];
-    for (int i = 0; i < length; i++){
-//        if ([rowContainer containsString: length])
-        //NSRange range = NSMakeRange(i, row);
-    }
-        return @"";
-}
+    NSMutableArray *encriptedStrings = [[NSMutableArray alloc] init];
 
+    for (int row = 0; row < rows; row++) {
+        NSMutableString *encriptedString = [[NSMutableString alloc] initWithCapacity:columns];
+        for (int column = 0; column < columns; column++) {
+            int pos = rows * column + row;
+            if (pos < string.length) {
+                NSRange range = NSMakeRange(pos, 1);
+                NSString *letter = [string substringWithRange:range];
+                [encriptedString appendString:letter];
+            }
+        }
+        [encriptedStrings addObject:encriptedString];
+    }
+    return [encriptedStrings componentsJoinedByString:@" "];
+}
 @end
