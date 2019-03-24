@@ -5,7 +5,6 @@
 
 @implementation Sorted
 
-
 - (NSInteger)findStartUsortedIndex:(NSArray*)array {
     NSInteger leftUnsorted = NSNotFound;
     for (NSInteger i = 0; i < array.count - 1; i++) {
@@ -42,7 +41,7 @@
 // Complete the sorted function below.
 - (ResultObject*)sorted:(NSString*)string {
     NSArray<NSString *> *array = [string componentsSeparatedByString:@" "];
-    ResultObject *value = [ResultObject new];
+    ResultObject *value = [[ResultObject new] autorelease];
     
     NSInteger startIndex = [self findStartUsortedIndex:array];
     NSInteger lastIndex = [self findLastUsortedIndex:array];
@@ -62,14 +61,16 @@
     }];
     if ([sorted isEqualToArray:swappedArray]) {
         value.status = YES;
-        value.detail = [[NSString alloc] initWithFormat:@"swap %d %d", startIndex + 1, lastIndex + 1];
+        value.detail = [NSString stringWithFormat:@"swap %d %d", startIndex + 1, lastIndex + 1];
+        [swappedArray release];
         return value;
     }
+    [swappedArray release];
     
     NSArray *reversedArray = [self reversedArray:array inRange:NSMakeRange(startIndex, lastIndex - startIndex + 1)];
     if ([sorted isEqualToArray:reversedArray]) {
         value.status = YES;
-        value.detail = [[NSString alloc] initWithFormat:@"reverse %d %d", startIndex + 1, lastIndex + 1];
+        value.detail = [NSString stringWithFormat:@"reverse %d %d", startIndex + 1, lastIndex + 1];
         return value;
     }
     

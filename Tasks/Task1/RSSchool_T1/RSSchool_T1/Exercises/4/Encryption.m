@@ -23,7 +23,13 @@
             }
         }
         [encriptedStrings addObject:encriptedString];
+        [encriptedString release];
     }
-    return [encriptedStrings componentsJoinedByString:@" "];
+    
+    NSString* result = [encriptedStrings componentsJoinedByString:@" "];
+    [encriptedStrings release];
+
+    return result;
 }
+
 @end
