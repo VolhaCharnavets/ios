@@ -1,4 +1,6 @@
 #import <UIKit/UIKit.h>
+#define IBOutlet
+
 /*
  You need to complete a View Controller capable of adding and substracting dates.
  It should have 3 text fields, 2 buttons and 1 label.
